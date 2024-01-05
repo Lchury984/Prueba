@@ -1,0 +1,121 @@
+// Clase abstracta Carta
+public abstract class Carta {
+    private String nombre;
+
+    public Carta(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public abstract void jugar();
+    public abstract void mostrarDescripcion();
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+}
+
+public class CartaNumerica extends Carta {
+    private int numero;
+
+    public CartaNumerica(String nombre, int numero) {
+        super(nombre);
+        this.numero = numero;
+    }
+
+    @Override
+    public void jugar() {
+        // Realiza una conversión de valores entre tipos
+        double resultado = (double) this.numero * 2.5;
+        System.out.println("Jugando la carta numerica con numero " + this.numero);
+        System.out.println("El resultado de la conversion es: " + resultado);
+    }
+
+    @Override
+    public void mostrarDescripcion() {
+        System.out.println("Carta numerica: " + this.getNombre() + ", numero: " + this.numero);
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+}
+public class CartaEspecial extends Carta {
+    public CartaEspecial(String nombre) {
+        super(nombre);
+    }
+
+    @Override
+    public void jugar() {
+        
+        System.out.println("Activando efecto especial de la carta " + this.getNombre());
+        // Implementación específica del método jugar para CartaEspecial
+    }
+
+    @Override
+    public void mostrarDescripcion() {
+        System.out.println("Carta especial: " + this.getNombre());
+    }
+    
+    
+    public static void activarefectoEspecial() {
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(13) + 1; // Genera un número aleatorio entre 1 y 13 (11, 12,13 son J, Q, K respectivamente)
+
+        Carta carta;
+        if ( numeroAleatorio == 11 || numeroAleatorio == 12 || numeroAleatorio == 13) {
+            // Es una carta especial (J, Q, K, A)}
+            
+            carta = new CartaEspecial("Carta " + numeroAleatorio);
+            System.out.println("!Has obtenido una carta especial¡ ");
+        } else 
+        {
+            // No es una carta especial
+            carta = new CartaNumerica("Carta " + numeroAleatorio, numeroAleatorio);
+        }
+
+        carta.mostrarDescripcion(); // Muestra la descripción de la carta
+        carta.jugar(); // Juega la carta
+    }
+
+    
+}
+import java.util.Random;
+
+public class Main {
+
+    public static void main(String[] args) {
+        activarefectoEspecial();
+    }
+
+    public static void activarefectoEspecial() {
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(13) + 1; // Genera un número aleatorio entre 1 y 13 (11, 12,13 son J, Q, K respectivamente)
+
+        Carta carta;
+        if ( numeroAleatorio == 11 || numeroAleatorio == 12 || numeroAleatorio == 13) {
+            // Es una carta especial (J, Q, K, A)}
+            
+            carta = new CartaEspecial("Carta " + numeroAleatorio);
+            System.out.println("!Has obtenido una carta especial! ");
+        } else 
+        {
+            // No es una carta especial
+            carta = new CartaNumerica("Carta " + numeroAleatorio, numeroAleatorio);
+        }
+
+        carta.mostrarDescripcion(); // Muestra la descripción de la carta
+        carta.jugar(); // Juega la carta
+    }
+}
+
+
+
